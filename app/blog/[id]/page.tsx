@@ -2,6 +2,8 @@
 import { client } from '../../../libs/microcms';
 import styles from './page.module.css';
 import dayjs from 'dayjs';
+import { renderToc } from '@/libs/render-toc';
+import { TableOfContents } from '@/components/TalbleOfContent';
 
 // ブログ記事の型定義
 type Props = {
@@ -28,11 +30,15 @@ export default async function BlogPostPage({ params }: { params: Promise<{ id: s
   // dayjsを使ってpublishedAtをYY.MM.DD形式に変換
   const formattedDate = dayjs(post.publishedAt).format('YY.MM.DD');
 
+  // リンク付きの目次作成
+  const toc = renderToc(post.body);
+  console.log(toc);
   return (
     <main className={styles.main}>
       <h1 className={styles.title}>{post.title}</h1> {/* タイトルを表示 */}
       <div className={styles.date}>{formattedDate}</div> {/* 日付を表示 */}
       <div className={styles.category}>カテゴリー：{post.category && post.category.name}</div> {/* カテゴリーを表示 */}
+      <TableOfContents toc={toc} />
       <div className={styles.post} dangerouslySetInnerHTML={{ __html: post.body }} /> {/* 記事本文を表示 */}
     </main>
   );
