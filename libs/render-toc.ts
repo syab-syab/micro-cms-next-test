@@ -1,8 +1,8 @@
 import * as cheerio from 'cheerio';
 
 type Props = {
-  text: string;
-  id: string;
+  text: string
+  id: string
 }
 
 export const renderToc = (body: string): Array<Props> => {

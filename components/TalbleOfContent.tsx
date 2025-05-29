@@ -1,10 +1,11 @@
 type Props = {
-  text: string;
-  id: string;
+  text: string
+  id: string
 }
 
-// なぜ{ toc }: {toc: Array<Props>}でエラーが直ったのかよくわからんので後で調べる
-export const TableOfContents = ({ toc }: {toc: Array<Props>}) => {
+// なんか知らんけど{ toc }: { toc: Array<Props> }じゃないとエラーが出る
+// 分割代入?しないとapp/blog/[id]/page.tsxでエラーが出る
+export const TableOfContents = ({ toc } : { toc: Array<Props> }) => {
   return (
     <div>
       <p className="TableOfContentsHead">目次</p>

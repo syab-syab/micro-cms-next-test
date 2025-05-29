@@ -7,11 +7,12 @@ import { TableOfContents } from '@/components/TalbleOfContent';
 
 // ブログ記事の型定義
 type Props = {
-  id: string;
-  title: string;
-  body: string;
-  publishedAt: string;
-  category: { name: string };
+  id: string
+  title: string
+  body: string
+  publishedAt: string
+  category: { name: string }
+  toc_visible: boolean
 };
 
 // microCMSから特定の記事を取得
@@ -38,7 +39,12 @@ export default async function BlogPostPage({ params }: { params: Promise<{ id: s
       <h1 className={styles.title}>{post.title}</h1> {/* タイトルを表示 */}
       <div className={styles.date}>{formattedDate}</div> {/* 日付を表示 */}
       <div className={styles.category}>カテゴリー：{post.category && post.category.name}</div> {/* カテゴリーを表示 */}
-      <TableOfContents toc={toc} />
+      {
+        post.toc_visible && (
+          <TableOfContents toc={toc} />
+        )
+      }
+      {/* <TableOfContents toc={toc} /> */}
       <div className={styles.post} dangerouslySetInnerHTML={{ __html: post.body }} /> {/* 記事本文を表示 */}
     </main>
   );
